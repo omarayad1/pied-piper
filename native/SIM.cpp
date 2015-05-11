@@ -25,7 +25,7 @@ void Load();
 int main()
 {
 	SIM_imem.write_instr("ADDI");
-	SIM_imem.write_instr("JAL");
+	//SIM_imem.write_instr("JAL");
 	SIM_imem.write_instr("ADD");
 	SIM_imem.write_instr("JR");
 	//SIM_imem.write_instr("STO");

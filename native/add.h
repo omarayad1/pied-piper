@@ -14,7 +14,7 @@ public:
 		rt = rtin;
 		file = file_pntr;
 	}
-	virtual void execute() {res = op1 + op2; cout << this->get_name() << " has executed with result " << res<<endl;}
+	virtual void execute();
 };
 
 #endif
