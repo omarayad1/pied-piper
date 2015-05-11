@@ -13,19 +13,15 @@ protected:
 	int op1, op2, res, loaded;
 	data_mem* dmem;
 public:
-	itype() {type = 'i';}
-	int get_rs() {return rs;}
-	int get_rt() {return rt;}
-	void set_op1(int in) {op1 = in;}
-	int get_res() {return res;}
-	void set_load(int in) {loaded = in;}
-	int get_loaded() {return loaded;}
+	itype();
+	int get_rs();
+	int get_rt();
+	void set_op1(int in);
+	int get_res();
+	void set_load(int in);
+	int get_loaded();
 
-	virtual void decode(){
-		op1 = file->load_from_reg(rs);
-		op2 = imm;
-		cout << this->get_name() << " has decoded, op1: "<< op1 << " and op2: " << op2<<endl;
-	}
+	virtual void decode();
 };
 
 #endif
