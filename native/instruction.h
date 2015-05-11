@@ -2,6 +2,8 @@
 #define INSTR_H
 
 #include <string>
+#include "regfile.h"
+
 using namespace std;
 
 class instruction
@@ -11,9 +13,9 @@ protected:
 	char type;
 	regfile* file;
 public:
-	instruction() {}
-	string get_name() {return name;}
-	char get_type() {return type;}
+	instruction(){}
+	string get_name();
+	char get_type();
 
 	virtual void decode()=0;
 	virtual void execute()=0;
