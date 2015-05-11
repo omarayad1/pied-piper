@@ -2,6 +2,7 @@
 #define JTYPE_H
 
 #include "instruction.h"
+#include "PC.h"
 
 class jtype: public instruction
 {

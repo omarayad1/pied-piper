@@ -12,7 +12,6 @@ public:
 		file = file_pntr;
 		pc = pc_pntr;
 		ret = pc->get();
-		cout << "fetched with ret address "<<ret<<endl;
 	}
 	
 	virtual void execute(){

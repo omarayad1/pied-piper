@@ -2,8 +2,9 @@
 #define ITYPE_H
 
 #include "instruction.h"
-
+#include "data_mem.h"
 #include <iostream>
+
 using namespace std;
 class itype: public instruction
 {

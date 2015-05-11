@@ -2,6 +2,7 @@
 #define RTYPE_H
 
 #include "instruction.h"
+#include "PC.h"
 #include <iostream>
 
 class rtype: public instruction
