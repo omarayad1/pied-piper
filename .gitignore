@@ -97,7 +97,6 @@ pip-selfcheck.json
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
-Makefile*
 *-build-*
 
 # QtCreator
@@ -150,3 +149,5 @@ native/*.py
 native/build
 
 build
+
+.DS_Store
