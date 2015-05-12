@@ -1,6 +1,7 @@
 all:
 	swig -c++ -python native/regfile.i
 	swig -c++ -python native/add.i
+	swig -c++ -python native/addi.i
 	swig -c++ -python native/PC.i
 	swig -c++ -python native/XOR.i
 	swig -c++ -python native/addi.i
