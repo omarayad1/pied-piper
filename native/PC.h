@@ -4,12 +4,15 @@
 class PC
 {
 private:
-	int counter;
+    int counter;
+    bool jump;
 public:
-	PC();
-	int get();
-	void increment();
-	void load(int add);
+    PC();
+    int get();
+    void increment();
+    void load(int add);
+    bool jumped();
+    void unjump();
 };
 
 #endif

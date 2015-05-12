@@ -5,9 +5,9 @@
 
 class jal: public jtype{
 public:
-	jal(int, regfile*, PC*);
-	virtual void execute();
-	virtual void write();
+    jal(int, data_mem*, PC*);
+    virtual void execute();
+    virtual void access();
 };
 
 #endif
