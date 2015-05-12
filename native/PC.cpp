@@ -1,14 +1,14 @@
 #include "PC.h"
 
 PC::PC(){
-    counter = 0;
+    counter = 0x00400000;
     jump = false;
 }
 int PC::get(){
     return counter;
 }
 void PC::increment(){
-    counter++;
+    counter+=4;
 }
 void PC::load(int add){
     counter = add;
