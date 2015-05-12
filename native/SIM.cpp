@@ -29,7 +29,7 @@ int main()
     SIM_imem.write_instr("ADD");
 	SIM_imem.write_instr("ADDI");
 	SIM_imem.write_instr("BNE");
-	SIM_imem.write_instr("LOAD");
+	SIM_imem.write_instr("LW");
 	SIM_imem.write_instr("ADD");
 	SIM_imem.write_instr("XOR");
 	SIM_imem.write_instr("SLT");
@@ -78,7 +78,7 @@ void Load()
 		else if(inst == "ADDI")
 			pipe.fetch(new addi(1, 0, 10, &SIM_file));
 		else if (inst == "LOAD")
-			pipe.fetch(new load(2, 6, 0, &SIM_file, &SIM_dmem));
+			pipe.fetch(new lw(2, 6, 0, &SIM_file, &SIM_dmem));
 		else if(inst == "SW")
 			pipe.fetch(new sw(1, 2, 0, &SIM_file, &SIM_dmem));
 		else if(inst == "BNE")

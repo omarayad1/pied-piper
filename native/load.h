@@ -3,10 +3,10 @@
 
 #include "itype.h"
 
-class load: public itype
+class lw: public itype
 {
 public:
-	load(int, int, int, regfile*, data_mem*);
+	lw(int, int, int, regfile*, data_mem*);
 	virtual void execute();
 	virtual void access();
 	virtual void write();
