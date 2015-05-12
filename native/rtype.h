@@ -10,7 +10,6 @@ class rtype: public instruction
 protected:
 	int rs, rt, rd;
 	int op1, op2, res;
-	PC* pc;
 public:
 	rtype();
 	int get_rs();

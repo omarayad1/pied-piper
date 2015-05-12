@@ -3,6 +3,7 @@
 
 #include <string>
 #include "regfile.h"
+#include "PC.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ protected:
 	string name;
 	char type;
 	regfile* file;
+	PC* pc;
 public:
 	instruction(){}
 	string get_name();

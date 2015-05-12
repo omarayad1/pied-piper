@@ -6,10 +6,10 @@ class PC
 private:
 	int counter;
 public:
-	PC() {counter = 0;}
-	int get() {return counter;}
-	void increment() {counter++;}
-	void load(int add){counter = add;}
+	PC();
+	int get();
+	void increment();
+	void load(int add);
 };
 
 #endif

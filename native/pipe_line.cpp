@@ -12,6 +12,7 @@ void pipe_line::fetch(instruction* inst){
 }
 
 void pipe_line::decode(){
+	bubble = false;
 	if(line[1] != NULL)
 		line[1]->decode();
 }
@@ -26,12 +27,12 @@ void pipe_line::execute(){
 			rtype* instr = dynamic_cast<rtype*> (line[2]);
 			int rsr = instr->get_rs();
 			int rtr = instr->get_rt();
-			if(forward(rsr, forwarded))
+			if(forward(rsr, forwarded) && !bubble)
 			{
 				instr->set_op1(forwarded);
 				cout << instr->get_name() << " has updated R[rs] to " << forwarded << " by forwarding!\n";
 			}
-			if(instr->get_name() != "JR" && forward(rtr, forwarded))
+			if(instr->get_name() != "JR" && forward(rtr, forwarded) && !bubble)
 			{
 				instr->set_op2(forwarded);
 				cout << instr->get_name() << " has updated R[rt] to " << forwarded << " by forwarding!\n";
@@ -41,10 +42,16 @@ void pipe_line::execute(){
 		{
 			itype* insti = dynamic_cast<itype*> (line[2]);
 			int rsi = insti->get_rs();
-			if(forward(rsi, forwarded))
+			int rti = insti->get_rt();
+			if(forward(rsi, forwarded) && !bubble)
 			{
 				insti->set_op1(forwarded);
 				cout << insti->get_name() << " has updated R[rs] to " << forwarded << " by forwarding!\n";
+			}
+			if(insti->get_name() == "BNE" && forward(rti, forwarded) && !bubble)
+			{
+				insti->set_op2(forwarded);
+				cout << insti->get_name() << " has updated R[rt] to " << forwarded << " by forwarding!\n";
 			}
 		}
 
@@ -59,7 +66,7 @@ void pipe_line::access(){
 		if(line[3]->get_name() == "STO")
 		{
 			itype* stor = dynamic_cast<itype*> (line[3]);
-			int forwarded;
+			int forwarded;			//forward =1 for sto
 			int rstor = stor->get_rt();
 			if(forward2(rstor, forwarded, 4))
 			{
@@ -82,45 +89,40 @@ bool pipe_line::empty(){
 }
 
 bool pipe_line::upline(){
-	/*if(line[1] != NULL && line[1]->get_name() == "LOAD" && line[0]->get_name() != "STO")*/
-	if(line[1] != NULL && line[1]->get_name() == "LOAD")
-		bubble = true;
-	else
-		bubble = false;
 	swap(line[3], line[4]);
-	swap(line[2], line[3]);
-	swap(line[1], line[2]);
 	if(!bubble)
 	{
+		swap(line[2], line[3]);
+		swap(line[1], line[2]);
 		swap(line[0], line[1]);
 		delete line[0];
 		line[0]=NULL;
 	}
 	else
 	{
-		delete line[1];
-		line[1]=NULL;
+		delete line[3];
+		line[3]=NULL;
 	}
 	return bubble;
 }
 
 bool pipe_line::forward(int rin, int& result){
-	//check inst in execute state
+	//check inst in mem access state
 	if(forward2(rin, result, 3))
 		return true;
-	else				//check inst in access state
+	else				//check inst in write state
 		if(forward2(rin, result, 4))
 			return true;
 	return false;
 }
 
 bool pipe_line::forward2(int& rin2, int& result2, int i){
-	if(line[i] != NULL && line[i]->get_type() != 'j' && line[i]->get_name() != "STO")
+	if(line[i] != NULL && line[i]->get_type() != 'j' && line[i]->get_name() != "STO" && line[i]->get_name() != "BNE")
 	{
-		if(line[i]->get_type() == 'r')
+		if(line[i]->get_type() == 'r')		//if the leading instruction is an r-type instruction
 		{
 			rtype* tempr = dynamic_cast<rtype*> (line[i]);
-			if(rin2 == tempr->get_rd())
+			if(rin2 == tempr->get_rd())			//if registers match
 			{
 				result2 = tempr->get_res();
 				return true;
@@ -129,9 +131,18 @@ bool pipe_line::forward2(int& rin2, int& result2, int i){
 		else
 		{
 			itype* tempi = dynamic_cast<itype*> (line[i]);
-			if(rin2 == tempi->get_rt())
+			if(rin2 == tempi->get_rt())					//if the leading instruction is an i-type instruction
 			{
-				result2 = tempi->get_res();
+				if(tempi->get_name() == "LOAD")			//if registers match
+					if(i==4)					//if the leading LOAD instruction is in the write stage
+						result2 = tempi->get_loaded();		//forward
+					else
+					{
+						bubble = true;					//stall
+						cout << "bubble bitches!\n";
+					}
+				else
+					result2 = tempi->get_res();
 				return true;
 			}
 		}

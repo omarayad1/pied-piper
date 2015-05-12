@@ -10,15 +10,9 @@ private:
 	string program[200];	//blind assumption
 	int cursor;
 public:
-	instr_mem()
-	{
-		for(int i=0; i<200; i++)
-			program[i] = "";
-		cursor=0;
-	}
-	//instr_mem(int);
-	string load_instr(int add) {return program[add];}
-	void write_instr(string in) {program[cursor++] = in;}
+	instr_mem();
+	string load_instr(int add);
+	void write_instr(string in);
 };
 
 #endif

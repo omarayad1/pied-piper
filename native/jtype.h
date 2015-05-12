@@ -9,7 +9,6 @@ class jtype: public instruction
 {
 protected:
 	int jadd, ret;
-	PC* pc;
 public:
 	jtype();
 	int get_ret();
