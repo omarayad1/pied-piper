@@ -2,6 +2,8 @@
 #define STORE_H
 
 #include "itype.h"
+#include "regfile.h"
+#include "data_mem.h"
 
 class sw: public itype
 {

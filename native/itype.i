@@ -1,6 +1,7 @@
 %module itype
 
 %{
+#include <iostream>
 #include "itype.h"
 %}
 
