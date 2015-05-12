@@ -50,7 +50,6 @@ int main()
         pipe.access();
         stall = pipe.upline();
         cycle++;
-        //system("pause");
     }
     while(!pipe.empty());
     cout << SIM_file.load_from_reg(15) << "  " << SIM_dmem.load_word(0)<<endl;
