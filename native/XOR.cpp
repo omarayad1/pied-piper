@@ -1,6 +1,6 @@
-#include "xor.h"
+#include "XOR.h"
 
-xor::xor(int rdin, int rsin, int rtin, regfile* file_pntr){
+XOR::XOR(int rdin, int rsin, int rtin, regfile* file_pntr){
 	name = "XOR";
 	rd = rdin;
 	rs = rsin;
@@ -8,7 +8,7 @@ xor::xor(int rdin, int rsin, int rtin, regfile* file_pntr){
 	file = file_pntr;
 }
 
-void xor::execute(){
+void XOR::execute(){
 	res = op1 ^ op2;
 	cout << this->get_name() << " has executed with result " << res<<endl;
 }

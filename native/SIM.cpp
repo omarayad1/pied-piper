@@ -4,7 +4,7 @@
 #include "data_mem.h"
 #include "pipe_line.h"
 #include "add.h"
-#include "xor.h"
+#include "XOR.h"
 #include "slt.h"
 #include "jr.h"
 #include "addi.h"
@@ -26,6 +26,7 @@ void Load();
 
 int main()
 {
+    SIM_imem.write_instr("ADD");
 	SIM_imem.write_instr("ADDI");
 	SIM_imem.write_instr("BNE");
 	SIM_imem.write_instr("LOAD");
@@ -33,6 +34,11 @@ int main()
 	SIM_imem.write_instr("XOR");
 	SIM_imem.write_instr("SLT");
 	
+    
+    SIM_file.write_to_reg(6, 1);
+    SIM_file.write_to_reg(1, 0);
+    
+    
 	bool stall=false;;
 	int cycle=1;
 
@@ -46,7 +52,7 @@ int main()
 		pipe.access();
 		stall = pipe.upline();
 		cycle++;
-		system("pause");
+		//system("pause");
 	}
 	while(!pipe.empty());
 	cout << SIM_file.load_from_reg(15) << "  " << SIM_dmem.load_word(0)<<endl;
@@ -64,7 +70,7 @@ void Load()
 		if(inst == "ADD")
 			pipe.fetch(new add(5, 6, 1, &SIM_file));
 		else if(inst == "XOR")
-			pipe.fetch(new xor(3, 4, 0, &SIM_file));
+			pipe.fetch(new XOR(3, 4, 0, &SIM_file));
 		else if(inst == "SLT")
 			pipe.fetch(new slt(2, 1, 0, &SIM_file));
 		else if(inst == "JR")
@@ -73,8 +79,8 @@ void Load()
 			pipe.fetch(new addi(1, 0, 10, &SIM_file));
 		else if (inst == "LOAD")
 			pipe.fetch(new load(2, 6, 0, &SIM_file, &SIM_dmem));
-		else if(inst == "STO")
-			pipe.fetch(new store(1, 2, 0, &SIM_file, &SIM_dmem));
+		else if(inst == "SW")
+			pipe.fetch(new sw(1, 2, 0, &SIM_file, &SIM_dmem));
 		else if(inst == "BNE")
 			pipe.fetch(new bne(1, 2, 3, &SIM_file, &SIM_pc));
 		else if(inst == "J")

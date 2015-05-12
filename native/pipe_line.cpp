@@ -63,10 +63,10 @@ void pipe_line::access(){
 	if(line[3] != NULL)
 	{
 		//store forwarding logic
-		if(line[3]->get_name() == "STO")
+		if(line[3]->get_name() == "SW")
 		{
 			itype* stor = dynamic_cast<itype*> (line[3]);
-			int forwarded;			//forward =1 for sto
+			int forwarded;			//forward =1 for SW
 			int rstor = stor->get_rt();
 			if(forward2(rstor, forwarded, 4))
 			{
@@ -117,7 +117,7 @@ bool pipe_line::forward(int rin, int& result){
 }
 
 bool pipe_line::forward2(int& rin2, int& result2, int i){
-	if(line[i] != NULL && line[i]->get_type() != 'j' && line[i]->get_name() != "STO" && line[i]->get_name() != "BNE")
+	if(line[i] != NULL && line[i]->get_type() != 'j' && line[i]->get_name() != "SW" && line[i]->get_name() != "BNE")
 	{
 		if(line[i]->get_type() == 'r')		//if the leading instruction is an r-type instruction
 		{

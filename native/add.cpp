@@ -11,4 +11,4 @@ add::add(int rdin, int rsin, int rtin, regfile* file_pntr) {
 void add::execute(){
 	res = op1 + op2;
 	cout << this->get_name() << " has executed with result " << res<<endl;
-} // this is just a pile of bullshit
+}

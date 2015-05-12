@@ -3,10 +3,10 @@
 
 #include "itype.h"
 
-class store: public itype
+class sw: public itype
 {
 public:
-	store(int, int, int, regfile*, data_mem*);
+	sw(int, int, int, regfile*, data_mem*);
 	virtual void decode();
 	virtual void execute();
 	virtual void access();

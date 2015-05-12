@@ -34,5 +34,5 @@ void rtype::access(){
 
 void rtype::write(){
 	file->write_to_reg(rd, res);
-	cout << this->get_name() << " has written " << res << "on reg " << rd<<endl;
+	cout << this->get_name() << " has written " << res << " on reg " << rd<<endl;
 }

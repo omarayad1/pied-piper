@@ -16,5 +16,5 @@ void addi::access(){
 }
 void addi::write(){
 	file->write_to_reg(rt, res);
-	cout << this->get_name() << " has written" << res << " on reg " << rt<<endl;
+	cout << this->get_name() << " has written " << res << " on reg " << rt<<endl;
 }
