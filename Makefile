@@ -21,7 +21,8 @@ all:
 	swig -c++ -python native/rtype.i
 	swig -c++ -python native/slt.i
 	swig -c++ -python native/store.i
-	
+	swig -c++ -python native/ret.i
+	swig -c++ -python native/end.i
 	python setup.py build_ext --inplace
 	touch native/__init__.py
 

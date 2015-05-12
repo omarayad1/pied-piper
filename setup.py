@@ -25,4 +25,7 @@ extension_mod.append(Extension("_regfile", ["native/regfile_wrap.cxx", "native/r
 extension_mod.append(Extension("_rtype", ["native/rtype_wrap.cxx", "native/rtype.cpp", "native/instruction.cpp", "native/PC.cpp", "native/regfile.cpp"]))
 extension_mod.append(Extension("_slt", ["native/slt_wrap.cxx", "native/slt.cpp", "native/rtype.cpp", "native/instruction.cpp", "native/PC.cpp", "native/regfile.cpp"]))
 extension_mod.append(Extension("_store", ["native/store_wrap.cxx", "native/store.cpp", "native/itype.cpp", "native/instruction.cpp", "native/data_mem.cpp", "native/regfile.cpp"]))
+extension_mod.append(Extension("_ret", ["native/ret_wrap.cxx", "native/ret.cpp", "native/instruction.cpp", "native/PC.cpp", "native/data_mem.cpp", "native/regfile.cpp"]))
+extension_mod.append(Extension("_end", ["native/end_wrap.cxx", "native/end.cpp", "native/instruction.cpp", "native/PC.cpp", "native/ret.cpp", "native/data_mem.cpp", "native/regfile.cpp"]))
+
 setup(name = "pied-piper", ext_modules=extension_mod)
