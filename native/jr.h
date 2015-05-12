@@ -2,8 +2,6 @@
 #define JR_H
 
 #include "rtype.h"
-#include "PC.h"
-#include "regfile.h"
 
 class jr: public rtype{
 public:

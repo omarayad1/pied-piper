@@ -4,7 +4,7 @@
 #include "data_mem.h"
 #include "pipe_line.h"
 #include "add.h"
-#include "xor.h"
+#include "XOR.h"
 #include "slt.h"
 #include "jr.h"
 #include "addi.h"
@@ -34,8 +34,8 @@ int main()
     SIM_imem.write_instr("ADD");
     SIM_imem.write_instr("SLT");
     SIM_imem.write_instr("ADD");
-    SIM_imem.write_instr("LOAD");
-    SIM_imem.write_instr("STO");
+    SIM_imem.write_instr("LW");
+    SIM_imem.write_instr("SW");
     
     bool stall=false;;
     int cycle=1;

@@ -2,8 +2,6 @@
 #define LOAD_H
 
 #include "itype.h"
-#include "regfile.h"
-#include "data_mem.h"
 
 class lw: public itype
 {

@@ -1,6 +1,7 @@
 #ifndef INSTRMEM_H
 #define INSTRMEM_H
 
+#include <map>
 #include <string>
 using namespace std;
 

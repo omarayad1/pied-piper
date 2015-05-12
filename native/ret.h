@@ -2,8 +2,6 @@
 #define RET_H
 
 #include "instruction.h"
-#include "PC.h"
-#include "data_mem.h"
 
 class ret: public instruction{
 public:
