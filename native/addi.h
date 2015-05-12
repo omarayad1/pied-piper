@@ -2,7 +2,6 @@
 #define ADDI_H
 
 #include "itype.h"
-#include "regfile.h"
 
 class addi: public itype
 {

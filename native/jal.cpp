@@ -13,6 +13,7 @@ void jal::execute(){
     //concatenate ma3 old pc then
     if(!dmem->stack_is_full())
     {
+        jadd = jadd << 2;
         pc->load(jadd);
         cout << this->get_name() << " has executed, loading pc with " << jadd << " and preparing old pc to be stacked\n";
     }

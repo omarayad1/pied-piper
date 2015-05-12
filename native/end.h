@@ -2,7 +2,6 @@
 #define END_H
 
 #include "instruction.h"
-#include "PC.h"
 
 class endp: public instruction{
 public:

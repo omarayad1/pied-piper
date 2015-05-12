@@ -2,8 +2,6 @@
 #define BNE_H
 
 #include "itype.h"
-#include "regfile.h"
-#include "PC.h"
 
 class bne: public itype{
 public:
