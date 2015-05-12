@@ -1,0 +1,20 @@
+{
+  "name": "PipelineSimulator",
+  "version": "0.0.0",
+  "authors": [
+    "Youssef/Yousif Rehab <loufis@aucegypt.edu>"
+  ],
+  "license": "MIT",
+  "dependencies":{
+    "ace-builds": "*",
+    "d3":"*",
+    "bootstrap":"*"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

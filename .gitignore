@@ -151,3 +151,4 @@ native/build
 build
 
 .DS_Store
+views/bower_components
