@@ -1,4 +1,4 @@
-from native import XOR, add, addi, ble, bne, jal, jr, jump, load, slt, store, regfile, data_mem, PC
+from native import XOR, add, addi, ble, bne, jal, jr, jump, load, slt, store, regfile, data_mem, PC, ret, jmpro
 from classes import inst_mem
 from re import compile
 
@@ -17,7 +17,9 @@ instr_map = {
 	"J": jump.j,
 	"LW": load.lw,
 	"SLT": slt.slt,
-	"SW": store.sw
+	"SW": store.sw,
+	"JMPRO": jmpro.jmpro,
+	"RET": ret.ret
 	}
 
 def get_file(path):
@@ -36,8 +38,8 @@ def map_to_class(line):
 	itype = compile(r"([a-zA-Z]+)\s+\$([0-9]+)\s*,\s*\$([0-9]+)\s*,\s*([0-9]+)")
 	mem_instr = compile(r"(lw|sw)\s+\$([0-9]+)\s*,\s*([0-9]+)\s*\(\s*\$([0-9]+)\s*\)")
 	jr = compile(r"(jr)\s+\$([0-9]+)")
-	j_jal = compile(r"(j|jal)\s+([0-9]+)")
-
+	j_jal = compile(r"(j|jal|jmpro)\s+([0-9]+)")
+	ret_c = compile(r"(ret)")
 
 	if rtype.findall(line) != []:
 		inst, reg1, reg2, reg3 = rtype.findall(line)[0]
@@ -62,9 +64,14 @@ def map_to_class(line):
 	elif j_jal.findall(line) != []:
 		inst, imm = j_jal.findall(line)[0]
 		if inst.upper() == "J":
-			return instr_map[inst.upper()](int(reg1), pc)
+			return instr_map[inst.upper()](int(imm), pc)
+		elif inst.upper() == "JMPRO":
+			return instr_map[inst.upper()](int(imm), data_memory,pc)
 		else:
-			return instr_map[inst.upper()](int(reg1), data_memory, pc)
+			return instr_map[inst.upper()](int(imm), register_file, pc)
+	elif ret_c.findall(line) != []:
+		inst = ret_c.findall(line)[0]
+		return instr_map[inst.upper()](data_memory, pc)
 	else:
 		inst = "UKW"
 

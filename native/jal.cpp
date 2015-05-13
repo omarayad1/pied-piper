@@ -15,7 +15,7 @@ void jal::execute(){
     //temp1 = ((temp1/268435456)*268435456) + (jadd*4);
     temp1 = ((temp1>>28)<<28) + (jadd*4);
     pc->load(temp1);
-    cout << this->get_name() << " has executed, loading pc with " << jadd << " and preparing old pc to be stored in ra\n";
+    cout << this->get_name() << " has executed, loading pc with " << temp1 << " and preparing old pc to be stored in ra\n";
 }
 void jal::write(){
     file->write_to_reg(15, ret);		//return address is written on reg 15 (ra)

@@ -1,10 +1,17 @@
 #include "pipe_line.h"
 
+
 pipe_line::pipe_line(PC* pc_pntr){
     for(int i=0; i<5; i++)				//initializes all pointers to NULL
         line[i] = NULL;
     bubble = false;
     pc = pc_pntr;
+    c=1;
+}
+
+void pipe_line::getcycle(){
+    cout << "cycle " << c <<endl;
+    c++;
 }
 
 void pipe_line::fetch(instruction* inst){
@@ -73,7 +80,7 @@ void pipe_line::access(){
             itype* stor = dynamic_cast<itype*> (line[3]);
             int forwarded;
             int rstor = stor->get_rt();
-            if(forward2(rstor, forwarded, 4))			//checks if the wanted registers are found in the instruction in the write back stage
+            if(forward3(rstor, forwarded) && !bubble)			//checks if the wanted registers are found in the instruction in the write back stage
             {
                 stor->set_load(forwarded);			//if yes the result is forwarded
                 cout << stor->get_name() << " has updated R[rt] to " << forwarded << " by forwarding!\n";
@@ -117,6 +124,15 @@ bool pipe_line::forward(int rin, int& result){
     if(forward2(rin, result, 3))		//check if the register searched for is in the isntruction in the mem access stage
         return true;
     else				//if its not found in the mem access stage write back stage is checked
+        if(forward2(rin, result, 4))
+            return true;
+    return false;
+}
+
+bool pipe_line::forward3(int rin, int& result){
+    if(forward2(rin, result, 2))        //check if the register searched for is in the isntruction in the mem access stage
+        return true;
+    else                //if its not found in the mem access stage write back stage is checked
         if(forward2(rin, result, 4))
             return true;
     return false;

@@ -3,9 +3,6 @@ from parser import register_file, data_memory
 import sim
 import logging
 
-# log = logging.getLogger('werkzeug')
-# log.setLevel(logging.ERROR)
-
 app = Flask(__name__)
 
 global data

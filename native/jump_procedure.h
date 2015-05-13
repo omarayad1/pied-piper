@@ -4,6 +4,7 @@
 #include "jtype.h"
 #include "PC.h"
 #include "regfile.h"
+#include "data_mem.h"
 
 class jmpro: public jtype{
 public:

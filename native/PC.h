@@ -1,6 +1,6 @@
 #ifndef PC_H
 #define PC_H
-
+#include <iostream>
 class PC
 {
 private:

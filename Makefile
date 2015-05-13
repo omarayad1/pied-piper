@@ -23,6 +23,7 @@ all:
 	swig -c++ -python native/store.i
 	swig -c++ -python native/ret.i
 	swig -c++ -python native/end.i
+	swig -c++ -python native/jump_procedure.i
 	python setup.py build_ext --inplace
 	touch native/__init__.py
 

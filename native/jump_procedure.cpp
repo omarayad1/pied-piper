@@ -18,7 +18,7 @@ void jmpro::execute(){
         //temp1 = ((temp1/268435456)*268435456) + (jadd*4);
         temp1 = ((temp1>>28)<<28) + (jadd*4);
         pc->load(temp1);
-        cout << this->get_name() << " has executed, loading pc with " << jadd << " and preparing old pc to be stacked\n";
+        cout << this->get_name() << " has executed, loading pc with " << temp1 << " and preparing old pc to be stacked\n";
     }
     else
         cout << "stack is full!" << this->get_name() << " execution has been ommtied!\n";
