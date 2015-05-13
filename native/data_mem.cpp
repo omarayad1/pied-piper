@@ -1,11 +1,10 @@
 #include "data_mem.h"
 
 data_mem::data_mem(){
-    //memory = new int(mem_size+1);
-    for(int i=0; i<32; i++)
+    for(int i=0; i<32; i++)             // initializes data memory cells to zero
         memory[i]=0;
     
-    for(int i=0; i<4; i++)
+    for(int i=0; i<4; i++)              // initializes stack values to zero
         stack[i]=0;
     stk_pnrt = -1;
 }

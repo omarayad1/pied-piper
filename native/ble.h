@@ -6,7 +6,7 @@
 class ble: public itype{
 public:
     ble();
-    virtual void execute();
+    virtual void execute();     //implement execute, access, write functions
     virtual void access();
     virtual void write();
 };

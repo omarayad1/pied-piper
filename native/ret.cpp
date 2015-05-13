@@ -11,7 +11,7 @@ void ret::decode(){
     cout << this->get_name() << " has no decode!\n";
 }
 
-void ret::execute(){
+void ret::execute(){				//if stack is not empty return pops the last address in the stack and loads it into the pc
     if(dmem->stack_is_empty())
     {
         cout << "stack is empty!" << this->get_name() << " execution has been ommited\n";

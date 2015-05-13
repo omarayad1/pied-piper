@@ -7,7 +7,7 @@ bne::bne(int rtin, int rsin, int immin, regfile* file_pntr, PC* pc_pntr){
 	imm = immin;
 	file = file_pntr;
 	pc = pc_pntr;
-	branch = pc->get();
+	branch = pc->get();         //set branch to current pc
 }
 void bne::decode(){
 	op1 = file->load_from_reg(rs);
@@ -15,7 +15,7 @@ void bne::decode(){
 	cout << this->get_name() << " has decoded with op1: " << op1 << " and op2: " <<op2<<endl;
 }
 void bne::execute(){
-	if(op1 != op2)
+	if(op1 != op2)              // if op1 not equal to op2 branch address is calculated and loaded into pc
 	{
 		branch += imm;
 		pc->load(branch);
