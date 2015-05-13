@@ -8,12 +8,14 @@ app = Flask(__name__)
 def nothing():
     return render_template('PipelineSimulator.html')
 
+
 @app.route("/registerData", methods=['GET'])
 def get_register_data():
 	data = []
 	for i in xrange(32):
 		data.append(register_file.load_from_reg(i))
 	return jsonify({"data":data})
+
 
 @app.route("/memoryData", methods=['GET'])
 def get_memory_data():
