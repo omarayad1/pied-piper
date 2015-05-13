@@ -25,7 +25,7 @@
     }
     .second {
         padding-left: 10%;
-        overflow: scroll;
+        overflow: hidden;
         height: 40em;
         width: 60%;
     }
@@ -40,13 +40,14 @@
     
 </style>
 <script src="../static/bower_components/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 
 <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
 </head>
-<body style="margin-top:1em">
+<body style="margin-top:1em;padding-bottom:10em;">
     <div class="wrapper">
         <div class="first">
             <div id="editor">add $0, $3, $6
@@ -59,25 +60,7 @@
         </div>
 
         <div class="second">
-    <!--
-            <table>
-                <tr>
-                    <th></th> <th>Cycle n</th> <th>Cycle n+1</th> <th>Cycle n+2</th> <th>Cycle n+3</th> 
-                    <th>Cycle n+4</th> <th>Cycle n+5</th> <th>Cycle n+6</th> <th>Cycle n+7</th> <th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+1</th> <th>Cycle n+2</th> <th>Cycle n+3</th> 
-                    <th>Cycle n+4</th> <th>Cycle n+5</th> <th>Cycle n+6</th> <th>Cycle n+7</th> <th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th><th>Cycle n+7</th>
-                </tr>
-                <tr>
-                    <td style="width:10em"><p class="inst">add $0, $3, $6</p></td>
-                    <td></td>
-                    <td><img  src="static/images/pic/pic-16.png"></img></td>
-                    <td><img  src="static/images/pic/pic-16.png"></img></td>
-                    <td><img  src="static/images/pic/pic-16.png"></img></td>
-                    <td><img  src="static/images/pic/pic-16.png"></img></td>
-                    <td><img  src="static/images/pic/pic-16.png"></img></td>
-                </tr>
 
-            </table>
-    -->
             
             <div id="log">batee5</div>
 
@@ -85,17 +68,17 @@
 
 
     </div>
-    <div class="wrapper">
+    <div class="wrapper"style="overflow:visible;margin-bottom:100px;">
 
         <div class="first">
-            <table style="margin-left: 40%" class="table-hover">
+            <table id="regMem" style="margin-left: 40%;margin-bottom:100px;" class="table-hover">
                 <tr><th>Register Memory Address</th><th>Data</th></tr>
                 <tr><td>0x0000000</td><td>3214</td></tr>
             </table>
         </div>
 
-        <div class="second">
-            <table style="margin-left: 10%" class="table-hover">
+        <div class="second" style="overflow:visible;margin-bottom:100px;">
+            <table id="dataMem" style="margin-left: 10%" class="table-hover">
                 <tr><th>Data Memory Address</th><th>Data</th></tr>
                 <tr><td>0x0000000</td><td>3214</td></tr>
             </table>
@@ -117,39 +100,56 @@
     editor.container.style.pointerEvents="none"
     editor.renderer.setStyle("disabled", true)
 
-    function post(path, params) {
-    method = "post"; // Set method to post by default if not specified.
 
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for(var key in params) {
-        if(params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-         }
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-}
-    
     function Simulate(){
         var editor = ace.edit("editor");
-        post("path", editor.getValue());
-        editor = ace.edit("log");
-        editor.setValue("simul");
+        $.post("/simulate", {"data":editor.getValue()}, function(data){
+            getLog();
+            getRegfile();
+            getData();
+        });
     }
 
     function Next_Step(){
-        editor.setValue("next"); 
+        $.get("/nextStep", function(data){
+            getLog();
+            getRegfile();
+            getData();
+        });
+    }
+
+    function getLog(){
+        var editor = ace.edit("log");
+        $.get("/getLog", function(data){
+            editor.setValue(data.data);
+        });
+    }
+
+    function getData(){
+        $.get("/memoryData", function(data){
+            tabl = $("#dataMem");
+            tabl.html("<tr><th>Data Memory Address</th><th>Data</th></tr>");
+            count = 0;
+            for (var i=0; i<data.data.length;i++)
+            {
+                tabl.append("<tr><td>"+count+"</td><td>"+data.data[i]+"</td></tr>");
+                count+=1;
+            }
+        });
+    }
+
+    function getRegfile(){
+        $.get("/registerData", function(data){
+            //console.log(data.data)
+            tabl = $("#regMem");
+            tabl.html("<tr><th>Register Memory Address</th><th>Data</th></tr>");
+            count = 0;
+            for (var i=0; i<data.data.length;i++)
+            {
+                tabl.append("<tr><td>"+count+"</td><td>"+data.data[i]+"</td></tr>");
+                count+=1;
+            }
+        });
     }
 
 </script>

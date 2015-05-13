@@ -15,7 +15,7 @@ def fill_inst_mem(code):
 	global stall
 
 	cycle = 1
-
+	
 	inst_mem = parser.fill_instr_mem(code)
 	'Im not sure about the following line, the pipe_line constructor is supposed to take a pc pointer Im not sure how to do that'
 	pipe = pipe_line.pipe_line(pc)

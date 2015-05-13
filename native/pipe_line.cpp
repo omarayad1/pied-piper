@@ -85,6 +85,7 @@ void pipe_line::access(){
 }
 
 void pipe_line::write(){
+
     if(line[4] != NULL)						//if there's an instruction in the write back stage it writes to the register file
         line[4]->write();
 }
@@ -108,6 +109,7 @@ bool pipe_line::upline(){
         delete line[3];					//the isntruction which was in the write back stage is removed from the pipe line and destroyed
         line[3]=NULL;
     }
+    cout << endl;
     return bubble;
 }
 

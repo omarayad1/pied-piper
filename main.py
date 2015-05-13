@@ -3,8 +3,8 @@ from parser import register_file, data_memory
 import sim
 import logging
 
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 
@@ -34,14 +34,20 @@ def get_memory_data():
 @app.route("/simulate", methods=['POST'])
 def load_data():
 	code = request.form["data"]
-	sim.fill_instr_mem(code)
-	return True
+	sim.fill_inst_mem(code)
+	return "fol"
 
 
 @app.route("/nextStep", methods=['GET'])
 def execute_next_step():
 	sim.next_step()
-	return True
+	return "fol"
+
+
+@app.route("/getLog", methods=['GET'])
+def get_log_data():
+	data = open('console.log', 'r').read()
+	return jsonify({'data': data})
 
 
 if __name__ == "__main__":

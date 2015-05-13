@@ -152,3 +152,4 @@ build
 
 .DS_Store
 static/bower_components
+console.log
