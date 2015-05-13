@@ -41,6 +41,8 @@
 </style>
 <script src="../static/bower_components/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
 <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
 </head>
@@ -53,7 +55,7 @@
             </div>
 
             <button style="margin-top:1em; margin-left:10em" class = "btn btn-primary btn-lg" onclick="Simulate()">Simulate</button>
-            <button style="margin-top:1em; margin-left:1em" class = "btn btn-primary btn-lg" onclick="Simulate()">Next Step</button>
+            <button style="margin-top:1em; margin-left:1em" class = "btn btn-primary btn-lg" onclick="Next_Step()">Next Step</button>
         </div>
 
         <div class="second">
@@ -114,10 +116,50 @@
     editor.getSession().setMode("ace/mode/assembly_x86");
     editor.container.style.pointerEvents="none"
     editor.renderer.setStyle("disabled", true)
+
+    function post(path, params) {
+    method = "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
     
+    function Simulate(){
+        var editor = ace.edit("editor");
+        post("path", editor.getValue());
+        editor = ace.edit("log");
+        editor.setValue("simul");
+    }
 
+    function Next_Step(){
+        editor.setValue("next"); 
+    }
 
-    function Simulate() {}
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
