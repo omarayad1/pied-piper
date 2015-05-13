@@ -5,23 +5,23 @@
 #include "PC.h"
 #include <iostream>
 
-class rtype: public instruction
+class rtype: public instruction				//rtype instruction inherits from instruction class
 {
 protected:
-	int rs, rt, rd;
-	int op1, op2, res;
+    int rs, rt, rd;				//rs, rt and rd register
+    int op1, op2, res;			//values extracted from the registers
 public:
-	rtype();
-	int get_rs();
-	int get_rt();
-	int get_rd();
-	void set_op1(int);
-	void set_op2(int);
-	int get_res();
-	
-	virtual void decode();
-	virtual void access();
-	virtual void write();
+    rtype();
+    int get_rs();			//returns rs register
+    int get_rt();			//returns rt register
+    int get_rd();			//returns rd register
+    void set_op1(int);		//set operand 1 value
+    void set_op2(int);		//set operand 2 value
+    int get_res();			//return the result calculated
+    
+    virtual void decode();			//implementing, access and write
+    virtual void access();
+    virtual void write();
 };
 
 #endif

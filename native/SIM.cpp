@@ -4,7 +4,7 @@
 #include "data_mem.h"
 #include "pipe_line.h"
 #include "add.h"
-#include "XOR.h"
+#include "xor.h"
 #include "slt.h"
 #include "jr.h"
 #include "addi.h"
@@ -13,6 +13,7 @@
 #include "bne.h"
 #include "jump.h"
 #include "jal.h"
+#include "jump_procedure.h"
 #include "ret.h"
 #include "end.h"
 #include <iostream>
@@ -27,13 +28,13 @@ void Load();
 
 int main()
 {
-    SIM_imem.write_instr("ADDI");
-    SIM_imem.write_instr("J");
+    SIM_imem.write_instr("JAL");
+    SIM_imem.write_instr("RET");
     SIM_imem.write_instr("SLT");
     SIM_imem.write_instr("XOR");
-    SIM_imem.write_instr("ADD");
-    SIM_imem.write_instr("SLT");
-    SIM_imem.write_instr("ADD");
+    SIM_imem.write_instr("JUMPRO");
+    SIM_imem.write_instr("J");
+    SIM_imem.write_instr("JR");
     SIM_imem.write_instr("LW");
     SIM_imem.write_instr("SW");
     
@@ -50,9 +51,10 @@ int main()
         pipe.access();
         stall = pipe.upline();
         cycle++;
+        //system("pause");
     }
     while(!pipe.empty());
-    cout << SIM_file.load_from_reg(15) << "  " << SIM_dmem.load_word(0)<<endl;
+    
     return 0;
 }
 
@@ -71,7 +73,7 @@ void Load()
         else if(inst == "SLT")
             pipe.fetch(new slt(2, 1, 0, &SIM_file));
         else if(inst == "JR")
-            pipe.fetch(new jr(1, &SIM_file, &SIM_pc));
+            pipe.fetch(new jr(15, &SIM_file, &SIM_pc));
         else if(inst == "ADDI")
             pipe.fetch(new addi(1, 0, 5, &SIM_file));
         else if (inst == "LW")
@@ -83,7 +85,9 @@ void Load()
         else if(inst == "J")
             pipe.fetch(new j(7, &SIM_pc));
         else if(inst == "JAL")
-            pipe.fetch(new jal(4, &SIM_dmem, &SIM_pc));
+            pipe.fetch(new jal(4, &SIM_file, &SIM_pc));
+        else if(inst == "JUMPRO")
+            pipe.fetch(new jmpro(6, &SIM_dmem, &SIM_pc));
         else if(inst == "RET")
             pipe.fetch(new ret(&SIM_dmem, &SIM_pc));
         else if(inst == "END")

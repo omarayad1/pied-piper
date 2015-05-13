@@ -11,7 +11,7 @@ void endp::decode(){
 }
 
 void endp::execute(){
-    //load instruction mem with last address
+    //initizlize pc with last instruction and loads it into the instruction memory
     pc->load(199);
     cout << this->get_name() << " has executed endingt the program!\n";
 }

@@ -8,7 +8,7 @@ class add: public rtype
 {
 public:
 	add(int, int, int, regfile*);
-	void execute();
+	void execute();                 //implement executre function
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 instr_mem::instr_mem()
 {
-	for(int i=0; i<200; i++)
+	for(int i=0; i<200; i++)                //initiializes all instructions to ""
 		program[i] = "";
 	cursor=0;
 }
@@ -10,5 +10,5 @@ string instr_mem::load_instr(int add){
 	return program[add];
 }
 void instr_mem::write_instr(string in){
-	program[cursor++] = in;
+	program[cursor++] = in;                 //writes  to the next instruction
 }
