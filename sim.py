@@ -6,8 +6,8 @@ global stall
 global cycle
 global pipe
 
-def fill_inst_mem(file):
-	code = parser.get_file(file)
+def fill_inst_mem(code):
+	#code = parser.get_file(file)
 	code = parser.split_to_lines(code)
 
 	global pipe
