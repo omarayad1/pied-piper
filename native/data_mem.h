@@ -4,17 +4,17 @@
 class data_mem
 {
 private:
-    int memory[32];
-    int stack[4];
-    int stk_pnrt;
+    int memory[32];                 // memory container
+    int stack[4];                   // stack container
+    int stk_pnrt;                   // stack pointer
 public:
     data_mem();
-    int load_word(int addr);
-    void store_word(int addr, int val);
-    void push_to_stack(int);
-    int pop_from_stack();
-    bool stack_is_empty();
-    bool stack_is_full();
+    int load_word(int addr);        // returns memory contents of the nwated address
+    void store_word(int addr, int val);     // stores the val in the wanted memory address
+    void push_to_stack(int);        // pushes a value to the stack structure
+    int pop_from_stack();           // pops a value from the stack structure
+    bool stack_is_empty();          //returns true if the stack empty
+    bool stack_is_full();           //returns true if the stack is full
 };
 
 #endif

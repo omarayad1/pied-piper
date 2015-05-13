@@ -24,7 +24,7 @@ void itype::set_load(int in){
 int itype::get_loaded(){
 	return loaded;
 }
-void itype::decode(){
+void itype::decode(){                   //load op1 from register file and op2 from immediate
 	op1 = file->load_from_reg(rs);
 	op2 = imm;
 	cout << this->get_name() << " has decoded, op1: "<< op1 << " and op2: " << op2<<endl;

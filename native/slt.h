@@ -6,8 +6,8 @@
 class slt: public rtype
 {
 public:
-	slt(int, int, int, regfile*);
-	virtual void execute();
+    slt(int, int, int, regfile*);
+    virtual void execute();
 };
 
 #endif
